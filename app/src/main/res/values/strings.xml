@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NewsApp1</string>
+    <string name="recent">Recently</string>
+    <string name="unknown">Time Unknown</string>
+    <string name="no_data_available">No data available</string>
+    <string name="no_internet_connection">No Internet connection</string>
+</resources>
