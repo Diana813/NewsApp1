@@ -50,23 +50,24 @@ public class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
-            // Extract the JSONArray associated with the key called "response",
+            // Extract the JSONObject associated with the key called "response",
             // which represents a list of responses (or articles).
-            JSONArray newsArray = baseJsonResponse.getJSONArray("response");
+            JSONObject newsObject = baseJsonResponse.getJSONObject("response");
 
-            // For each article in the newsArray, create an {@link News} object
-            for (int i = 0; i < newsArray.length(); i++) {
 
-                // Get a single article at position i within the list of news
-                JSONObject currentNews = newsArray.getJSONObject(i);
+            // For each article in the newsObject, create an {@link News} object
+            for (int i = 0; i < newsObject.length(); i++) {
 
                 // For a given news, extract the JSONObject associated with the
                 // key called "results", which represents a list of all results
                 // for that article.
-                JSONObject contents = currentNews.getJSONObject("results");
+                JSONArray currentNews = newsObject.getJSONArray("results");
+
+                // Get a single article at position "i" within the list of news
+                JSONObject contents = currentNews.getJSONObject(i);
 
                 // Extract the value for the key called "sectionName"
-                String magazine = contents.getString("sectionName");
+                String sectionName = contents.getString("sectionName");
 
                 // Extract the value for the key called "webPublicationDate"
                 String date = contents.getString("webPublicationDate");
@@ -79,7 +80,7 @@ public class QueryUtils {
 
                 // Create a new {@link News} object with the magazine, title, time,
                 // and url from the JSON response.
-                News article = new News(magazine, title, date, url);
+                News article = new News(sectionName, title, date, url);
 
                 // Add the new {@link Earthquake} to the list of earthquakes.
                 news.add(article);
@@ -89,7 +90,6 @@ public class QueryUtils {
             // Print a log message with the message from the exception.
             Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
-
         // Return the list of news
         return news;
     }
@@ -170,7 +170,7 @@ public class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return a list of {@link News} objects.
+     * Query the theguardian dataset and return a list of {@link News} objects.
      */
     public static List<News> fetchNewsData(String requestUrl) {
         // Create URL object

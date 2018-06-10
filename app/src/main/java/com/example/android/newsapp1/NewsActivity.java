@@ -1,6 +1,8 @@
 package com.example.android.newsapp1;
 
+
 import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -17,26 +19,25 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
+public class NewsActivity extends AppCompatActivity
+        implements LoaderCallbacks<List<News>> {
 
-    private ListView listView;
-    private TextView mEmptyStateTextView;
+    private static final String LOG_TAG = NewsActivity.class.getName();
 
-
-    /**
-     * Adapter for the list of articles
-     */
-    private NewsAdapter mAdapter;
-
-    /**
-     * URL for news data
-     */
+    /** URL for news data */
     private static final String NEWS_REQUEST_URL =
-            "https://content.guardianapis.com/search?section=science&q=%27science%27&api-key=78a422f1-9494-4ac8-9250-b78fee7bd33e";
+            "https://content.guardianapis.com/search?section=science&q=%27food%27&api-key=78a422f1-9494-4ac8-9250-b78fee7bd33e";
 
+    /**
+     * Constant value for the news loader ID.
+     */
     private static final int NEWS_LOADER_ID = 1;
 
+    /** Adapter for the list of news */
+    private NewsAdapter Adapter;
 
+    /** TextView that is displayed when the list is empty */
+    private TextView EmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +45,25 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_news);
 
         // Find a reference to the {@link ListView} in the layout
-        listView = (ListView) findViewById(R.id.list);
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-        listView.setEmptyView(mEmptyStateTextView);
-        // Create a new adapter that takes an empty list of news as input
-        mAdapter = new
+        ListView newsListView = (ListView) findViewById(R.id.list);
 
-                NewsAdapter(this, new ArrayList<News>());
+        EmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        newsListView.setEmptyView(EmptyStateTextView);
+
+        // Create a new adapter that takes an empty list of news as input
+        Adapter = new NewsAdapter(this, new ArrayList<News>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        listView.setAdapter(mAdapter);
+        newsListView.setAdapter(Adapter);
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected article.
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-
-        {
+        newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Find the current article that was clicked on
-                News currentNews = mAdapter.getItem(position);
+                News currentNews = Adapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri newsUri = Uri.parse(currentNews.getUrl());
@@ -76,12 +75,13 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(websiteIntent);
             }
         });
+
         // Get a reference to the ConnectivityManager to check state of network connectivity
-        ConnectivityManager connMgr = (ConnectivityManager)
+        ConnectivityManager conM = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Get details on the currently active default data network
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        NetworkInfo networkInfo = conM.getActiveNetworkInfo();
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
@@ -90,7 +90,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
             // Initialize the loader.
             loaderManager.initLoader(NEWS_LOADER_ID, null, this);
-
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
@@ -98,39 +97,36 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
-            mEmptyStateTextView.setText(R.string.no_internet_connection);
-
+            EmptyStateTextView.setText(R.string.no_internet_connection);
         }
     }
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-
         // Create a new loader for the given URL
         return new NewsLoader(this, NEWS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
-
+        // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_spinner);
         loadingIndicator.setVisibility(View.GONE);
-        mEmptyStateTextView.setText(R.string.no_data_available);
-        // Clear the adapter of previous news data
-        mAdapter.clear();
+
+        // Set empty state text to display "No data available."
+        EmptyStateTextView.setText(R.string.no_data_available);
+
 
         // If there is a valid list of {@link News}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
-            mAdapter.addAll(news);
+            Adapter.addAll(news);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
-        mAdapter.clear();
+        Adapter.clear();
     }
-
 }
-

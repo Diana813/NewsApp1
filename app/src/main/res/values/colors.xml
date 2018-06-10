@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#6B8E23</color>
+    <color name="colorPrimaryDark">#556B2F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <!-- Text color for the details of the earthquake in the list item -->
-    <color name="textColorNewsDetails">#B4BAC0</color>
+    <!-- The background color for the activity_news.xml layout-->
+    <color name="background">#fffde7</color>
 
-    <!-- Text color for the primary location of the earthquake in the list item -->
-    <color name="textColorNewsTitle">#2B3D4D</color>
+    <!-- Text color for the section name of the news in the list item -->
+    <color name="textColorNewsDetails">#b0bec5</color>
+
+    <!-- Text color for the title of the article in the list item -->
+    <color name="textColorNewsTitle">#002984</color>
 </resources>

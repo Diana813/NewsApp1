@@ -16,7 +16,7 @@ public class News {
     /**
      * Section name (topic of the article)
      */
-    private String Magazine;
+    private String SectionName;
 
     /**
      * Url
@@ -25,14 +25,14 @@ public class News {
 
     /**
      * Create a new Earthquake object.
-     *  @param magazine          is the section of the article topic
+     *  @param sectionName          is the section of the article topic
      * @param title          is the title of the article
      * @param date is the date of publication
      * @param url                is the website to which you can go
      */
-    public News(String magazine, String title, String date, String url) {
+    public News(String sectionName, String title, String date, String url) {
         Title = title;
-        Magazine = magazine;
+        SectionName = sectionName;
         Date = date;
         URL = url;
 
@@ -49,8 +49,8 @@ public class News {
     /**
      * Get the magazine.
      */
-    public String getMagazine() {
-        return Magazine;
+    public String getSectionName() {
+        return SectionName;
     }
 
 

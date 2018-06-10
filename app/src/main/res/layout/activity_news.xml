@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background= "@color/background">
 
     <ListView
         android:id="@+id/list"
@@ -11,7 +12,7 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:orientation="vertical"
-        tools:ignore="ExtraText"><!-- divider odnosi się do linii pomiędzy elementami list view-->
+        tools:ignore="ExtraText">
     </ListView>
 
     <TextView

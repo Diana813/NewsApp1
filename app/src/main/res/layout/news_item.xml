@@ -20,14 +20,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/magazine"
+            android:id="@+id/sectionName"
             style="@style/TextStyleItems"
             android:layout_weight="1"
             android:maxLines="1"
             android:textAllCaps="true"
             android:textColor="@color/textColorNewsDetails"
             android:textSize="12sp"
-            tools:text="30km S of" />
+            tools:text="Science" />
 
         <TextView
             android:id="@+id/title"
@@ -53,7 +53,6 @@
             style="@style/TextStyleItems"
             android:layout_weight="1"
             android:textColor="@color/textColorNewsDetails"
-            android:textSize="12sp"
             tools:text="Mar 6, 2010" />
 
         <TextView
@@ -61,7 +60,6 @@
             style="@style/TextStyleItems"
             android:layout_weight="1"
             android:textColor="@color/textColorNewsDetails"
-            android:textSize="12sp"
             tools:text="3:00 PM" />
 
     </LinearLayout>

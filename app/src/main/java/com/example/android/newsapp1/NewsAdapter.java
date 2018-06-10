@@ -1,22 +1,17 @@
 package com.example.android.newsapp1;
 
 import android.app.Activity;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class NewsAdapter extends ArrayAdapter<News> {
     private static final String DATE_SEPARATOR = "T";
+    private static final String DATE_END = "Z";
 
     /**
      * @param NewsAdapter The current context. Used to inflate the layout file.
@@ -27,7 +22,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         // Initializing the ArrayAdapter's internal storage for the context and the list.
         super(NewsAdapter, 0, news);
     }
-
 
     /**
      * Provides a view for an AdapterView
@@ -52,26 +46,29 @@ public class NewsAdapter extends ArrayAdapter<News> {
         News currentNews = getItem(position);
 
 
-        // Find the TextView with view ID magazine
-        TextView magazineView = (TextView) listItemView.findViewById(R.id.magazine);
+        // Find the TextView with view ID sectionName
+        TextView magazineView = (TextView) listItemView.findViewById(R.id.sectionName);
         // Display the section name of the article
-        magazineView.setText(currentNews.getMagazine());
+        magazineView.setText(currentNews.getSectionName());
 
         // Find the TextView with view ID title
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
-        // Display the location of the current title in that TextView
+        // Display the current title in that TextView
         titleView.setText(currentNews.getTitle());
-
 
         // Create a new Date object
         String originalDate = currentNews.getDate();
         String date;
         String time;
-
         if (originalDate.contains(DATE_SEPARATOR)) {
             String[] parts = originalDate.split(DATE_SEPARATOR);
             date = parts[0];
             time = parts[1];
+            if (originalDate.contains(DATE_END)) {
+                String[] end = time.split(DATE_END);
+                time = end[0];
+            }
+
         } else {
             date = getContext().getString(R.string.recent);
             time = getContext().getString(R.string.unknown);
@@ -89,10 +86,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         timeView.setText(time);
 
         return listItemView;
-
     }
-
 }
-
-
 
