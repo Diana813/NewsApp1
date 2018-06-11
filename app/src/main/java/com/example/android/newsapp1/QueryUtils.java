@@ -75,12 +75,22 @@ public class QueryUtils {
                 // Extract the value for the key called "webTitle"
                 String title = contents.getString("webTitle");
 
+
+                JSONArray tags = contents.getJSONArray("tags");
+                JSONObject tagsContents = tags.getJSONObject(i);
+
+                String author = null;
+
+                if (tagsContents.has("webTitle")) {
+                    author = tagsContents.getString("webTitle");
+                }
+
                 // Extract the value for the key called "url"
                 String url = contents.getString("webUrl");
 
                 // Create a new {@link News} object with the magazine, title, time,
                 // and url from the JSON response.
-                News article = new News(sectionName, title, date, url);
+                News article = new News(sectionName, title, date, author, url);
 
                 // Add the new {@link Earthquake} to the list of earthquakes.
                 news.add(article);

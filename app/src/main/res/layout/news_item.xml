@@ -38,6 +38,16 @@
             android:textSize="16sp"
             tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
 
+        <TextView
+            android:id="@+id/author"
+            style="@style/TextStyleItems"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:textColor="@color/textColorNewsDetails"
+            android:textSize="12sp"
+            tools:text="By Diana Szczepankowska"
+            android:layout_gravity="end" />
+
     </LinearLayout>
 
     <LinearLayout

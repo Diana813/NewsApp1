@@ -19,17 +19,35 @@ public class News {
     private String SectionName;
 
     /**
+     * Author of the article
+     */
+    private String Author;
+
+    /**
      * Url
      */
     private String URL;
+
+    /** Constant value that represents no author was provided for this article */
+    private static final String NO_AUTHOR_PROVIDED = null;
 
     /**
      * Create a new Earthquake object.
      *  @param sectionName          is the section of the article topic
      * @param title          is the title of the article
      * @param date is the date of publication
+     * @param author is the author of the publication
      * @param url                is the website to which you can go
      */
+    public News(String sectionName, String title, String date, String author, String url) {
+        Title = title;
+        SectionName = sectionName;
+        Author = author;
+        Date = date;
+        URL = url;
+
+    }
+
     public News(String sectionName, String title, String date, String url) {
         Title = title;
         SectionName = sectionName;
@@ -38,35 +56,30 @@ public class News {
 
     }
 
-    /**
-     * Get the title.
-     */
     public String getTitle() {
         return Title;
     }
 
-
-    /**
-     * Get the magazine.
-     */
     public String getSectionName() {
         return SectionName;
     }
 
+    public String getAuthor() {
+        return Author;
+    }
 
-    /**
-     * Get the date of publish.
-     */
     public String getDate() {
         return Date;
     }
 
-    /**
-     * Get the url
-     */
     public String getUrl() {
         return URL;
     }
+
+    public boolean hasAuthor() {
+        return Author != NO_AUTHOR_PROVIDED;
+    }
+
 
 }
 

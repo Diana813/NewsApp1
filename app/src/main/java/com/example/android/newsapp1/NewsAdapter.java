@@ -45,16 +45,27 @@ public class NewsAdapter extends ArrayAdapter<News> {
         // Get the {@link AndroidFlavor} object located at this position in the list
         News currentNews = getItem(position);
 
-
         // Find the TextView with view ID sectionName
-        TextView magazineView = (TextView) listItemView.findViewById(R.id.sectionName);
+        TextView sectionView = (TextView) listItemView.findViewById(R.id.sectionName);
         // Display the section name of the article
-        magazineView.setText(currentNews.getSectionName());
+        sectionView.setText(currentNews.getSectionName());
 
         // Find the TextView with view ID title
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
         // Display the current title in that TextView
         titleView.setText(currentNews.getTitle());
+
+        // Find the TextView with view ID author
+        TextView authorView = (TextView) listItemView.findViewById(R.id.author);
+        if (currentNews.hasAuthor()) {
+            // If an image is available, display the provided image based on the resource ID
+            authorView.setText(currentNews.getAuthor());
+            // Make sure the view is visible
+            authorView.setVisibility(View.VISIBLE);
+        } else {
+            // Otherwise hide the authorView (set visibility to GONE)
+            authorView.setVisibility(View.GONE);
+        }
 
         // Create a new Date object
         String originalDate = currentNews.getDate();
