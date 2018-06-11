@@ -75,14 +75,14 @@ public class QueryUtils {
                 // Extract the value for the key called "webTitle"
                 String title = contents.getString("webTitle");
 
-
                 JSONArray tags = contents.getJSONArray("tags");
-                JSONObject tagsContents = tags.getJSONObject(i);
-
                 String author = null;
+                for (int j = 0; j < tags.length(); j++) {
+                    JSONObject tagsContents = tags.getJSONObject(j);
 
-                if (tagsContents.has("webTitle")) {
-                    author = tagsContents.getString("webTitle");
+                    if (tagsContents.has("webTitle")) {
+                        author = tagsContents.getString("webTitle");
+                    }
                 }
 
                 // Extract the value for the key called "url"
