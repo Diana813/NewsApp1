@@ -33,11 +33,11 @@ public class News {
 
     /**
      * Create a new Earthquake object.
-     *  @param sectionName          is the section of the article topic
-     * @param title          is the title of the article
+     *  @param sectionName  is the section of the article topic
+     * @param title is the title of the article
      * @param date is the date of publication
      * @param author is the author of the publication
-     * @param url                is the website to which you can go
+     * @param url is the website to which you can go
      */
     public News(String sectionName, String title, String date, String author, String url) {
         Title = title;

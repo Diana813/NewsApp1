@@ -24,7 +24,6 @@ public class NewsActivity extends AppCompatActivity
 
     private static final String LOG_TAG = NewsActivity.class.getName();
 
-    /** URL for news data */
     private static final String NEWS_REQUEST_URL =
             "https://content.guardianapis.com/search?section=science&show-tags=contributor&page-size=15&q='Food'&api-key=78a422f1-9494-4ac8-9250-b78fee7bd33e";
 
@@ -44,7 +43,6 @@ public class NewsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        // Find a reference to the {@link ListView} in the layout
         ListView newsListView = (ListView) findViewById(R.id.list);
 
         EmptyStateTextView = (TextView) findViewById(R.id.empty_view);
@@ -52,9 +50,6 @@ public class NewsActivity extends AppCompatActivity
 
         // Create a new adapter that takes an empty list of news as input
         Adapter = new NewsAdapter(this, new ArrayList<News>());
-
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
         newsListView.setAdapter(Adapter);
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
@@ -62,16 +57,13 @@ public class NewsActivity extends AppCompatActivity
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current article that was clicked on
+
                 News currentNews = Adapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri newsUri = Uri.parse(currentNews.getUrl());
 
-                // Create a new intent to view the news URI
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
-
-                // Send the intent to launch a new activity
                 startActivity(websiteIntent);
             }
         });
@@ -113,12 +105,8 @@ public class NewsActivity extends AppCompatActivity
         View loadingIndicator = findViewById(R.id.loading_spinner);
         loadingIndicator.setVisibility(View.GONE);
 
-        // Set empty state text to display "No data available."
         EmptyStateTextView.setText(R.string.no_data_available);
 
-
-        // If there is a valid list of {@link News}s, then add them to the adapter's
-        // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             Adapter.addAll(news);
         }
@@ -126,7 +114,6 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<News>> loader) {
-        // Loader reset, so we can clear out our existing data.
         Adapter.clear();
     }
 }

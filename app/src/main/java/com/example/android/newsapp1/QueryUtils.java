@@ -19,17 +19,13 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryUtils {
-
-    /**
-     * Tag for the log messages
-     */
+public final class QueryUtils {
+    
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
 
     private QueryUtils() {
     }
-
     /**
      * Return a list of {@link News} objects that has been built up from
      * parsing the given JSON response.
@@ -42,9 +38,6 @@ public class QueryUtils {
         // Create an empty ArrayList that we can start adding news to
         List<News> news = new ArrayList<>();
 
-        // Try to parse the JSON response string. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
-        // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
 
             // Create a JSONObject from the JSON response string
@@ -66,13 +59,10 @@ public class QueryUtils {
                 // Get a single article at position "i" within the list of news
                 JSONObject contents = currentNews.getJSONObject(i);
 
-                // Extract the value for the key called "sectionName"
                 String sectionName = contents.getString("sectionName");
 
-                // Extract the value for the key called "webPublicationDate"
                 String date = contents.getString("webPublicationDate");
 
-                // Extract the value for the key called "webTitle"
                 String title = contents.getString("webTitle");
 
                 JSONArray tags = contents.getJSONArray("tags");
@@ -85,22 +75,17 @@ public class QueryUtils {
                     }
                 }
 
-                // Extract the value for the key called "url"
                 String url = contents.getString("webUrl");
 
                 // Create a new {@link News} object with the magazine, title, time,
                 // and url from the JSON response.
                 News article = new News(sectionName, title, date, author, url);
-
-                // Add the new {@link Earthquake} to the list of earthquakes.
                 news.add(article);
             }
 
         } catch (JSONException e) {
-            // Print a log message with the message from the exception.
             Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
-        // Return the list of news
         return news;
     }
 
@@ -137,8 +122,6 @@ public class QueryUtils {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            // If the request was successful (response code 200),
-            // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
@@ -152,9 +135,6 @@ public class QueryUtils {
                 urlConnection.disconnect();
             }
             if (inputStream != null) {
-                // Closing the input stream could throw an IOException, which is why
-                // the makeHttpRequest(URL url) method signature specifies than an IOException
-                // could be thrown.
                 inputStream.close();
             }
         }
@@ -183,9 +163,8 @@ public class QueryUtils {
      * Query the theguardian dataset and return a list of {@link News} objects.
      */
     public static List<News> fetchNewsData(String requestUrl) {
-        // Create URL object
-        URL url = createUrl(requestUrl);
 
+        URL url = createUrl(requestUrl);
 
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
@@ -198,7 +177,6 @@ public class QueryUtils {
         // Extract relevant fields from the JSON response and create a list of {@link News}s
         List<News> news = extractFeatureFromJson(jsonResponse);
 
-        // Return the list of {@link News}s
         return news;
     }
 

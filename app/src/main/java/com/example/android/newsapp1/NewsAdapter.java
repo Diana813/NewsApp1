@@ -19,10 +19,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
      */
     public NewsAdapter(Activity NewsAdapter, ArrayList<News> news) {
 
-        // Initializing the ArrayAdapter's internal storage for the context and the list.
         super(NewsAdapter, 0, news);
     }
-
     /**
      * Provides a view for an AdapterView
      *
@@ -35,39 +33,27 @@ public class NewsAdapter extends ArrayAdapter<News> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
-        View listItemView = convertView;
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.news_item, parent, false);
         }
 
-
-        // Get the {@link AndroidFlavor} object located at this position in the list
         News currentNews = getItem(position);
 
-        // Find the TextView with view ID sectionName
-        TextView sectionView = (TextView) listItemView.findViewById(R.id.sectionName);
-        // Display the section name of the article
+        TextView sectionView = (TextView) convertView.findViewById(R.id.sectionName);
         sectionView.setText(currentNews.getSectionName());
 
-        // Find the TextView with view ID title
-        TextView titleView = (TextView) listItemView.findViewById(R.id.title);
-        // Display the current title in that TextView
+        TextView titleView = (TextView) convertView.findViewById(R.id.title);
         titleView.setText(currentNews.getTitle());
 
-        // Find the TextView with view ID author
-        TextView authorView = (TextView) listItemView.findViewById(R.id.author);
+        TextView authorView = (TextView) convertView.findViewById(R.id.author);
         if (currentNews.hasAuthor()) {
-            // If an image is available, display the provided image based on the resource ID
             authorView.setText(currentNews.getAuthor());
-            // Make sure the view is visible
             authorView.setVisibility(View.VISIBLE);
         } else {
-            // Otherwise hide the authorView (set visibility to GONE)
             authorView.setVisibility(View.GONE);
         }
 
-        // Create a new Date object
         String originalDate = currentNews.getDate();
         String date;
         String time;
@@ -85,18 +71,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
             time = getContext().getString(R.string.unknown);
         }
 
-        // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
-        // Display the date of the current news publish in that TextView
+        TextView dateView = (TextView) convertView.findViewById(R.id.date);
         dateView.setText(date);
 
-
-        // Find the TextView with view ID time
-        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
-        // Display the time of the current news publish in that TextView
+        TextView timeView = (TextView) convertView.findViewById(R.id.time);
         timeView.setText(time);
 
-        return listItemView;
+        return convertView;
     }
 }
 
