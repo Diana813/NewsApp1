@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_oldest_label</item>
+        <item>@string/settings_order_by_most_recent_label</item>
+        <item>@string/settings_order_by_relevance_label</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_oldest_value</item>
+        <item>@string/settings_order_by_most_recent_value</item>
+        <item>@string/settings_order_by_relevance_value</item>
+    </string-array>
+
+    <string-array name="settings_choose_the_section_labels">
+        <item>@string/settings_choose_the_section_sport_label</item>
+        <item>@string/settings_choose_the_section_business_label</item>
+        <item>@string/settings_choose_the_section_life_and_style_label</item>
+        <item>@string/settings_choose_the_section_science_label</item>
+        <item>@string/settings_choose_the_section_weather_label</item>
+        <item>@string/settings_choose_the_section_fashion_label</item>
+        <item>@string/settings_choose_the_section_football_label</item>
+    </string-array>
+
+    <string-array name="settings_choose_the_section_values">
+        <item>@string/settings_choose_the_section_sport_value</item>
+        <item>@string/settings_choose_the_section_business_value</item>
+        <item>@string/settings_choose_the_section_life_and_style_value</item>
+        <item>@string/settings_choose_the_section_science_value</item>
+        <item>@string/settings_choose_the_section_weather_value</item>
+        <item>@string/settings_choose_the_section_fashion_value</item>
+        <item>@string/settings_choose_the_section_football_value</item>
+    </string-array>
+</resources>
