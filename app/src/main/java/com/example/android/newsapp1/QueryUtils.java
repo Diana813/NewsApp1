@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class QueryUtils {
-    
+
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    public static final int READ_TIMEOUT = 10000; //milliseconds
+    public static final int CONNECT_TIMEOUT = 15000; //milliseconds
 
 
     private QueryUtils() {
@@ -47,23 +49,23 @@ public final class QueryUtils {
             // which represents a list of responses (or articles).
             JSONObject newsObject = baseJsonResponse.getJSONObject("response");
 
+            // For a given news, extract the JSONObject associated with the
+            // key called "results", which represents a list of all results
+            // for that article.
+            JSONArray currentNews = newsObject.getJSONArray("results");
+
 
             // For each article in the newsObject, create an {@link News} object
-            for (int i = 0; i < newsObject.length(); i++) {
-
-                // For a given news, extract the JSONObject associated with the
-                // key called "results", which represents a list of all results
-                // for that article.
-                JSONArray currentNews = newsObject.getJSONArray("results");
+            for (int i = 0; i < newsObject.getJSONArray("results").length(); i++) {
 
                 // Get a single article at position "i" within the list of news
                 JSONObject contents = currentNews.getJSONObject(i);
 
-                String sectionName = contents.getString("sectionName");
+                String sectionName = contents.optString("sectionName");
 
-                String date = contents.getString("webPublicationDate");
+                String date = contents.optString("webPublicationDate");
 
-                String title = contents.getString("webTitle");
+                String title = contents.optString("webTitle");
 
                 JSONArray tags = contents.getJSONArray("tags");
                 String author = null;
@@ -71,11 +73,11 @@ public final class QueryUtils {
                     JSONObject tagsContents = tags.getJSONObject(j);
 
                     if (tagsContents.has("webTitle")) {
-                        author = tagsContents.getString("webTitle");
+                        author = tagsContents.optString("webTitle");
                     }
                 }
 
-                String url = contents.getString("webUrl");
+                String url = contents.optString("webUrl");
 
                 // Create a new {@link News} object with the magazine, title, time,
                 // and url from the JSON response.
@@ -117,12 +119,12 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {

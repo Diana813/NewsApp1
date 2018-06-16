@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6B8E23</color>
-    <color name="colorPrimaryDark">#556B2F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#9fa8da</color>
+    <color name="colorPrimaryDark">#6f79a8</color>
+    <color name="colorAccent">#d1d9ff </color>
 
     <!-- The background color for the activity_news.xml layout-->
-    <color name="background">#fffde7</color>
+    <color name="background">#fff</color>
 
     <!-- Text color for the section name of the news in the list item -->
     <color name="textColorNewsDetails">#b0bec5</color>
 
     <!-- Text color for the title of the article in the list item -->
-    <color name="textColorNewsTitle">#002984</color>
+    <color name="textColorNewsTitle">#1a237e</color>
 </resources>

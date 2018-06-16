@@ -6,27 +6,27 @@ public class News {
     /**
      * Date of publish
      */
-    private String Date;
+    private String mDate;
 
     /**
      * Title of the article
      */
-    private String Title;
+    private String mTitle;
 
     /**
      * Section name (topic of the article)
      */
-    private String SectionName;
+    private String mSectionName;
 
     /**
      * Author of the article
      */
-    private String Author;
+    private String mAuthor;
 
     /**
      * Url
      */
-    private String URL;
+    private String mURL;
 
     /** Constant value that represents no author was provided for this article */
     private static final String NO_AUTHOR_PROVIDED = null;
@@ -40,46 +40,45 @@ public class News {
      * @param url is the website to which you can go
      */
     public News(String sectionName, String title, String date, String author, String url) {
-        Title = title;
-        SectionName = sectionName;
-        Author = author;
-        Date = date;
-        URL = url;
+        mTitle = title;
+        mSectionName = sectionName;
+        mAuthor = author;
+        mDate = date;
+        mURL = url;
 
     }
 
     public News(String sectionName, String title, String date, String url) {
-        Title = title;
-        SectionName = sectionName;
-        Date = date;
-        URL = url;
+        mTitle = title;
+        mSectionName = sectionName;
+        mDate = date;
+        mURL = url;
 
     }
 
     public String getTitle() {
-        return Title;
+        return mTitle;
     }
 
     public String getSectionName() {
-        return SectionName;
+        return mSectionName;
     }
 
     public String getAuthor() {
-        return Author;
+        return mAuthor;
     }
 
     public String getDate() {
-        return Date;
+        return mDate;
     }
 
     public String getUrl() {
-        return URL;
+        return mURL;
     }
 
     public boolean hasAuthor() {
-        return Author != NO_AUTHOR_PROVIDED;
+        return mAuthor != NO_AUTHOR_PROVIDED;
     }
-
 
 }
 
